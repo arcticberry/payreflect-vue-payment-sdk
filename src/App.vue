@@ -5,42 +5,12 @@
         <h1 class="card">Card payments</h1>
         <p>Payment options</p>
       </div>
-      <div class="modal-button">
-        <div class="flex items-center">
-          <base-icon name="paystack"></base-icon>
-          <p class="ml-4 flex flex-col">
-            Pay with Paystack
-            <span>
-              NGN 10.00 fee
-            </span>
-          </p>
-        </div>
-        <base-icon name="chevron-right"></base-icon>
-      </div>
-      <div class="modal-button">
-        <div class="flex items-center">
-          <base-icon name="flutterwave"></base-icon>
-          <p class="ml-4 flex flex-col">
-            Pay with Flutterwave
-            <span>
-              NGN 10.00 fee
-            </span>
-          </p>
-        </div>
-        <base-icon name="chevron-right"></base-icon>
-      </div>
-      <div class="modal-button">
-        <div class="flex items-center">
-          <base-icon name="monify"></base-icon>
-          <p class="ml-4 flex flex-col">
-            Pay with Monnify
-            <span>
-              No payment fees
-            </span>
-          </p>
-        </div>
-        <base-icon name="chevron-right"></base-icon>
-      </div>
+      <template v-for="(item, index) in services">
+        <base-providers-button
+          :source="item"
+          :key="index"
+        ></base-providers-button>
+      </template>
     </div>
   </base-modal>
 </template>
@@ -48,9 +18,20 @@
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+      services: [],
+    };
+  },
+  async mounted() {
+    try {
+      const { data } = await this.$request.getServices();
+      this.services = data.appPaymentVendors || [];
+    } catch (error) {}
+  },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
 * {
   font-family: "Poppins", sans-serif;
 }

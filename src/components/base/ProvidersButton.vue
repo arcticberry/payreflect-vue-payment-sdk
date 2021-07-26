@@ -1,10 +1,9 @@
 <template>
   <div class="modal-button">
     <div class="flex items-center">
-      <base-icon :name="source.icon"></base-icon>
+      <img :src="source.brandUrl" class="img" />
       <p class="ml-4 flex flex-col">
-        {{ source.title }}
-        <span> {{ source.fee }} </span>
+        {{ source.label }}
       </p>
     </div>
     <base-icon name="chevron-right"></base-icon>
@@ -20,3 +19,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+img {
+  width: 50px;
+  height: 50px;
+}
+</style>

@@ -20,16 +20,14 @@ export default {
   name: "App",
   data() {
     return {
-      services: [
-        { title: "Pay with Paystack", icon: "paystack", fee: "NGN 10.00 fee" },
-        {
-          title: "Pay with Flutterwave",
-          icon: "flutterwave",
-          fee: "NGN 10.00 fee",
-        },
-        { title: "Pay with Monnify", icon: "monnify", fee: "No payment fees " },
-      ],
+      services: [],
     };
+  },
+  async mounted() {
+    try {
+      const { data } = await this.$request.getServices();
+      this.services = data.appPaymentVendors || [];
+    } catch (error) {}
   },
 };
 </script>
